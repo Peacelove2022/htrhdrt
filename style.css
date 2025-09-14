@@ -1,14 +1,14 @@
 body {    
     background-color: #ffff00;
     color: #0000ff;
-    
+    font-family: "Calibri";
 
 }
 h1 {
     color: #ff0000;
     font-size: 2em;
     text-align: center;
-    font-family: "Gothic";
+    font-family: "Calibri";
 }
 p {
     font-size: 1,2em;
