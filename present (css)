@@ -1,1 +1,26 @@
+body {    
+    background-color: #ffff00;
+    color: #0000ff;
+    font-family: "Comic Sans MS", "Comic Sans", cursive, sans-serif;
 
+}
+h1 {
+    color: #ff0000;
+    font-size: 2em;
+    text-align: center;
+    font-family: "Gothic";
+}
+p {
+    font-size: 1,2em;
+
+}
+ul {
+    list-style-type: square;
+ }
+ a {
+    color: #ffff00;
+    text-decoration: none;
+}
+a:hover {
+text-decoration: underline;
+}
