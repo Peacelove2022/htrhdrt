@@ -1,156 +1,93 @@
-<!DOCTYPE html>
+<DOCYTYPE html>
 <html>
 <head>
 <link rel="stylesheet" href="style.css">
 <title>HAPPY BIRTHDAY!!!</title>
-<style>
-  body {
-    margin: 0;
-    font-family: sans-serif;
-    background: #fff;
-  }
-  canvas#fireworks {
-    position: fixed;
-    top: 0;
-    left: 0;
-    z-index: -1;
-  }
-  .controls {
-    position: fixed;
-    top: 10px;
-    right: 10px;
-    background: white;
-    padding: 10px;
-    border-radius: 8px;
-    box-shadow: 0 2px 6px rgba(0,0,0,0.2);
-    font-size: 14px;
-  }
-  .controls label {
-    margin-right: 5px;
-  }
-</style>
 </head>
 <body>
-  <canvas id="fireworks"></canvas>
+    <canvas id="fireworks"></canvas>
+    <h1>Лёвушка, мой котеночек, с днём рождения тебя)))</h1>
+<p style="color: #7f00ff;">21 год назад родился мой самый дорогой человечек - ты)))</p>
+<p style="color: #000;">В этот замечательный день я бы хотел пожелать тебе здоровья (как физического, так и психического), много верных друзей, денег (само собой), ну и много веселых событий</p>
+    <p style="color: #7f00ff;">В трех словах - всего самого наилучшего))) </p>
+    <p style="color: #000;">Ну, и не могу не сказать, что очень сильно люблю тебя)))</p>
+    <p style="color: #7f00ff;">Ну, и теперь, собственно, перейдем к подарочку))) </p>
+    <p style="color: #000;">К сожалению, я ничего умнее придумать не смог, так что воть на этой картиночке снизу будет кодик сам знаешь от чего)</p>
+    <img src="images/photo_2025-01-15_12-57-32.jpg" alt="here should be a photo">
+    <p style="color: #7f00ff;">И еще раз с днём рождения тебя)))</p>
+      <script>
+  const canvas = document.getElementById("fireworks");
+  const ctx = canvas.getContext("2d");
+  canvas.width = window.innerWidth;
+  canvas.height = window.innerHeight;
 
-  <!-- Панель управления -->
-  <div class="controls">
-    <label for="bgColor">Фон:</label>
-    <input type="color" id="bgColor" value="#ffff00"> 
-    <br><br>
-    <button id="toggleMode">Сделать фон статичным</button>
-  </div>
-  
-  <h1>Лёвушка, мой котеночек, с днём рождения тебя)))</h1>
-  <p style="color: #7f00ff;">21 год назад родился мой самый дорогой человечек - ты)))</p>
-  <p style="color: #000;">В этот замечательный день я бы хотел пожелать тебе здоровья (как физического, так и психического), много верных друзей, денег (само собой), ну и много веселых событий</p>
-  <p style="color: #7f00ff;">Ну, и теперь, собственно, перейдем к подарочку))) </p>
-  <p style="color: #000;">Ну, и не могу не сказать, что очень сильно люблю тебя)))</p>
-  <p style="color: #000;">К сожалению, я ничего умнее придумать не смог, так что воть на этой картиночке снизу будет кодик сам знаешь от чего)</p>
-  <img src="images/photo_2025-01-15_12-57-32.jpg" alt="here should be a photo">
-  <p style="color: #7f00ff;">И еще раз с днём рождения тебя)))</p>
+  let particles = [];
 
-  <script>
-    const canvas = document.getElementById("fireworks");
-    const ctx = canvas.getContext("2d");
-    const bgColorInput = document.getElementById("bgColor");
-    const toggleModeBtn = document.getElementById("toggleMode");
-
-    canvas.width = window.innerWidth;
-    canvas.height = window.innerHeight;
-
-    let particles = [];
-    let bgColor = bgColorInput.value;
-    let dynamicMode = true; // режим по умолчанию: с шлейфом
-
-    bgColorInput.addEventListener("input", () => {
-      bgColor = bgColorInput.value;
-    });
-
-    toggleModeBtn.addEventListener("click", () => {
-      dynamicMode = !dynamicMode;
-      toggleModeBtn.textContent = dynamicMode 
-        ? "Сделать фон статичным" 
-        : "Сделать фон с шлейфом";
-    });
-
-    class Particle {
-      constructor(x, y, color) {
-        this.x = x;
-        this.y = y;
-        this.color = color;
-        this.radius = Math.random() * 2 + 2;
-        this.speedX = (Math.random() - 0.5) * 8;
-        this.speedY = (Math.random() - 0.5) * 8;
-        this.alpha = 1;
-        this.decay = Math.random() * 0.02 + 0.01;
-      }
-      update() {
-        this.x += this.speedX;
-        this.y += this.speedY;
-        this.alpha -= this.decay;
-      }
-      draw() {
-        ctx.save();
-        ctx.globalAlpha = this.alpha;
-        ctx.fillStyle = this.color;
-        ctx.beginPath();
-        ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
-        ctx.fill();
-        ctx.restore();
-      }
+  class Particle {
+    constructor(x, y, color) {
+      this.x = x;
+      this.y = y;
+      this.color = color;
+      this.radius = Math.random() * 2 + 2;
+      this.speedX = (Math.random() - 0.5) * 8;
+      this.speedY = (Math.random() - 0.5) * 8;
+      this.alpha = 1;
+      this.decay = Math.random() * 0.02 + 0.01;
     }
-
-    function createFirework(x, y) {
-      const colors = ["#ff0040", "#00ff90", "#00c3ff", "#ffae00", "#ffffff"];
-      const color = colors[Math.floor(Math.random() * colors.length)];
-      for (let i = 0; i < 50; i++) {
-        particles.push(new Particle(x, y, color));
-      }
+    update() {
+      this.x += this.speedX;
+      this.y += this.speedY;
+      this.alpha -= this.decay;
     }
+    draw() {
+      ctx.save();
+      ctx.globalAlpha = this.alpha;
+      ctx.fillStyle = this.color;
+      ctx.beginPath();
+      ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.restore();
+    }
+  }
 
-    function animate() {
-      // фон зависит от режима
-      if (dynamicMode) {
-        ctx.fillStyle = hexToRgba(bgColor, 0.2); // с прозрачностью = шлейф
+  function createFirework(x, y) {
+    const colors = ["#ff0040", "#00ff90", "#00c3ff", "#ffae00", "#ffffff"];
+    const color = colors[Math.floor(Math.random() * colors.length)];
+    for (let i = 0; i < 50; i++) {
+      particles.push(new Particle(x, y, color));
+    }
+  }
+
+  function animate() {
+    ctx.fillStyle = "rgba(0, 0, 0, 0.2)";
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+    particles.forEach((p, i) => {
+      if (p.alpha <= 0) {
+        particles.splice(i, 1);
       } else {
-        ctx.fillStyle = bgColor; // чистый фон
+        p.update();
+        p.draw();
       }
-      ctx.fillRect(0, 0, canvas.width, canvas.height);
+    });
 
-      particles.forEach((p, i) => {
-        if (p.alpha <= 0) {
-          particles.splice(i, 1);
-        } else {
-          p.update();
-          p.draw();
-        }
-      });
+    requestAnimationFrame(animate);
+  }
 
-      requestAnimationFrame(animate);
-    }
+  // запуск фейерверков каждые 500мс
+  const interval = setInterval(() => {
+    createFirework(
+      Math.random() * canvas.width,
+      Math.random() * canvas.height * 0.7
+    );
+  }, 500);
 
-// конвертация HEX в RGBA
-    function hexToRgba(hex, alpha) {
-      const r = parseInt(hex.substr(1, 2), 16);
-      const g = parseInt(hex.substr(3, 2), 16);
-      const b = parseInt(hex.substr(5, 2), 16);
-      return rgba(${r}, ${g}, ${b}, ${alpha});
-    }
+  animate();
 
-    const interval = setInterval(() => {
-      createFirework(
-        Math.random() * canvas.width,
-        Math.random() * canvas.height * 0.7
-      );
-    }, 500);
-
-    animate();
-
-    setTimeout(() => {
-      clearInterval(interval);
-    }, 60000);
-  </script>
+  // остановка через 60 секунд
+  setTimeout(() => {
+    clearInterval(interval);
+  }, 60000);
+</script>
 </body>
 </html>
-
